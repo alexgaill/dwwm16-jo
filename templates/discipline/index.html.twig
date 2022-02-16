@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Résumé des participants aux JO par discipline</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nom de la discipline</th>
+                <th>Nombre de candidats</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for discipline in disciplineList %}
+                <tr>
+                    <td>{{discipline.nom}}</td>
+                    <td>{{discipline.athletes|length}}</td>
+                    <td>
+                        <a href={{path('discipline_update', {id: discipline.id})}}><button class="btn btn-info">Modifier</button></a>
+                        <a href={{path('discipline_delete', {id: discipline.id})}}><button class="btn btn-danger">Supprimer</button></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="3">Aucune discipline n'est prévue pour le moment</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Ajouter une discipline</h2>
+    {{form(form)}}
+{% endblock %}

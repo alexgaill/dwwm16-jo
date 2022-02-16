@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>
+    Liste des pays participants
+    </h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Drapeau</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pays in paysList %}
+                <tr>
+                    <td>{{pays.nom}}</td>
+                    <td><img src="{{asset('img/upload/drapeau/' ~ pays.drapeau)}}" alt=""></td>
+                    <td>
+                        <a href={{path('pays_update', {id: pays.id})}}><button>Modifier</button></a>
+                        <a href={{path('pays_delete', {id: pays.id})}}><button>Supprimer</button></a>
+                    </td>
+                </tr>
+            {% else %}
+                
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Ajouter un pays:</h2>
+    {{form(form)}}
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>
+    Liste des participants
+    </h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Photo</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Date naissance</th>
+                <th>Discipline</th>
+                <th>Pays</th>
+                <th>Drapeau</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for at in athleteList %}
+                <tr>
+                <td><img src={{asset('img/upload/profil/' ~ at.photo)}} alt="" width="100px"></td>
+                    <td>{{at.nom}}</td>
+                    <td>{{at.prenom}}</td>
+                    <td>{{at.dateNaissance|date('d-m-Y')}}</td>
+                    <td>{{at.discipline.nom}}</td>
+                    <td>{{at.pays.nom}}</td>
+                    <td><img src="{{asset('img/upload/drapeau/' ~ at.pays.drapeau)}}" alt=""></td>
+                    <td>
+                        <a href={{path('athlete_update', {id: at.id})}}><button>Modifier</button></a>
+                        <a href={{path('athlete_delete', {id: at.id})}}><button>Supprimer</button></a>
+                    </td>
+                </tr>
+            {% else %}
+            <tr>
+                <td colspan="8">
+                    Aucun athlete inscrit pour le moment
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Ajouter un pays:</h2>
+    {{form(form)}}
+{% endblock %}
